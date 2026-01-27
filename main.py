@@ -8,7 +8,7 @@ class Usuario(SQLModel):
     nombre: str
     password: str
 
-usuarios = []
+usuarios = [Usuario(id=1, nombre="Juan", password="1234"),]
 
 @app.get("/")
 def root():
