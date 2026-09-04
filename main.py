@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from sqlmodel import SQLModel
 
-app = FastAPI()
+application = FastAPI()
 
 class Usuario(SQLModel):
     id: int
@@ -10,15 +10,15 @@ class Usuario(SQLModel):
 
 usuarios = [Usuario(id=1, nombre="Juan", password="1234"),]
 
-@app.get("/")
+@application.get("/")
 def root():
     return {"message": "Hello world"}
 
-@app.get("/user")
+@application.get("/user")
 def obtener_usuarios():
     return usuarios
 
-@app.get("/user/{id}")
+@application.get("/user/{id}")
 def obtener_usuario_id(id: int):    
     for usuario in usuarios:
         if usuario.id == id:
@@ -26,7 +26,7 @@ def obtener_usuario_id(id: int):
         else:
             return {"message":f"Usuario con id = {id} no existe"}
 
-@app.delete("/users/{id}")
+@application.delete("/users/{id}")
 def borrar_usuario(id: int):
     for usuario in usuarios:
         if usuario.id == id:
@@ -35,7 +35,7 @@ def borrar_usuario(id: int):
         else:
             return {"message":f"Usuario con id = {id} no existe"}
 
-@app.post("/users")
+@application.post("/users")
 def crear_usuario(usuario: Usuario):
     numero_usuarios = len(usuarios)
     usuario.id = numero_usuarios + 1
